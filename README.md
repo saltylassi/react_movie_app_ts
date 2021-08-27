@@ -1,4 +1,4 @@
-MovieAPP(React, TypeScript, StyledComponents, Axios, Redux, Redux-Saga, Electron)
+MovieAPP(React, TypeScript, Hooks, StyledComponents, Axios, Redux, Redux-Saga, Electron)
 
 electron Build = yarn electron-pack
 electron Dev = yarn electron-start
