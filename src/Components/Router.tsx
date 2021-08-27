@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import Movie from '../Routes/Movie/MoviePresenter';
-import Search from '../Routes/Search';
+import Search from '../Routes/Search/SearchPresenter';
 import TV from '../Routes/TV/TVPresenter';
 import Detail from '../Routes/Detail/DetailPresenter';
 import Header from './Header';

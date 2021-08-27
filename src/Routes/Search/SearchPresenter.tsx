@@ -5,6 +5,7 @@ import Section from '../../Components/Section';
 import Message from '../../Components/Message';
 import Poster from '../../Components/Poster';
 import Helmet from 'react-helmet';
+import useSearch from '../../hooks/useSearch';
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -31,16 +32,9 @@ interface SearchProps {
   updateTerm: (event: any) => void;
 }
 
-const SearchPresenter: React.FC<SearchProps> = ({
-  loading,
-  error,
-  movieResults,
-  tvResults,
-  searchTerm,
-  handleSubmit,
-  updateTerm,
-}) => {
-  console.log(movieResults, tvResults, error, searchTerm);
+const SearchPresenter: React.FC<SearchProps> = ({ loading }) => {
+  const { movieResults, tvResults, error, handleSubmit, updateTerm, searchTerm } = useSearch();
+
   return loading ? null : (
     <>
       <Helmet>
