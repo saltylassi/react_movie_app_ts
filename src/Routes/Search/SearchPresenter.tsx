@@ -22,19 +22,9 @@ const Input = styled.input`
   width: 100%;
 `;
 
-interface SearchProps {
-  loading: boolean;
-  error: string;
-  movieResults: any;
-  tvResults: any;
-  searchTerm: string;
-  handleSubmit: (event: any) => void;
-  updateTerm: (event: any) => void;
-}
-
-const SearchPresenter: React.FC<SearchProps> = ({ loading }) => {
+const SearchPresenter: React.FC = () => {
   const { movieResults, tvResults, error, handleSubmit, updateTerm, searchTerm } = useSearch();
-
+  const loading = true;
   return loading ? null : (
     <>
       <Helmet>
