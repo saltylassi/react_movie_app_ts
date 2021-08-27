@@ -11,24 +11,14 @@ import { useEffect } from 'react';
 import { getTopRatedTVStart } from '../../Redux/modules/tv/topRatedTV';
 import { getPopularTVStart } from '../../Redux/modules/tv/popularTV';
 import { getAiringTodayStart } from '../../Redux/modules/tv/airingTodayTV';
+import useShows from '../../hooks/useShows';
 
 const Container = styled.div`
   padding: 60px 20px;
 `;
 
 const TVPresenter: React.FC = () => {
-  const topRated = useSelector((state: RootState) => state.topRatedTV);
-  const popular = useSelector((state: RootState) => state.popularTV);
-  const airingToday = useSelector((state: RootState) => state.airingTV);
-  const loading = topRated.loading && popular.loading && airingToday.loading;
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTopRatedTVStart());
-    dispatch(getPopularTVStart());
-    dispatch(getAiringTodayStart());
-  }, []);
+  const { topRated, popular, airingToday, loading } = useShows();
 
   return loading ? null : (
     <>

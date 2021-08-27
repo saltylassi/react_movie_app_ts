@@ -9,6 +9,7 @@ import { RootState } from '../../Redux/reducer';
 import { useEffect } from 'react';
 import { getMovieDetailStart } from '../../Redux/modules/movie/movieDetail';
 import { getShowDetailStart } from '../../Redux/modules/tv/showDetail';
+import useDetail from '../../hooks/useDetail';
 
 const Container = styled.div`
   height: 100vh;
@@ -91,32 +92,7 @@ interface DetailProps {
 }
 
 const DetailPresenter: React.FC<DetailProps> = () => {
-  const { pathname } = useLocation();
-  const { id } = useParams<{ id: string }>();
-  const { push } = useHistory();
-  const isMovie = pathname.includes('/movie/');
-  const result: any = useSelector((state: RootState) => {
-    return isMovie ? state.movieDetail : state.showDetail;
-  });
-  const { data, loading, error } = result;
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isMovie) {
-      dispatch(getMovieDetailStart(id));
-    } else {
-      dispatch(getShowDetailStart(id));
-    }
-  }, []);
-
-  // 작동안함
-  // connectRouter 추가해서 redux로 고칠 것
-
-  // useEffect(() => {
-  //   if (isNaN(parseInt(id))) {
-  //     push('/');
-  //   }
-  // }, [id]);
+  const { data, loading, error } = useDetail();
 
   return loading ? (
     <>

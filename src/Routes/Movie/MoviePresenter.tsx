@@ -10,25 +10,14 @@ import { useEffect } from 'react';
 import { RootState } from '../../Redux/reducer';
 import { getUpcomingMovieStart } from '../../Redux/modules/movie/upcomingMovie';
 import { getPopularMovieStart } from '../../Redux/modules/movie/popularMovie';
+import useMovie from '../../hooks/useMovies';
 
 const Container = styled.div`
   padding: 60px 20px;
 `;
 
 const MoviePresenter: React.FC = () => {
-  const dispatch = useDispatch();
-  const nowPlaying = useSelector((state: RootState) => state.nowPlayingMovie);
-  const upcoming = useSelector((state: RootState) => state.upcomingMovie);
-  const popular = useSelector((state: RootState) => state.popularMovie);
-  const loading = nowPlaying.loading && upcoming.loading && popular.loading;
-
-  useEffect(() => {
-    dispatch(getNowPlayingMovieStart());
-    dispatch(getUpcomingMovieStart());
-    dispatch(getPopularMovieStart());
-  }, []);
-
-  useEffect(() => {});
+  const { nowPlaying, upcoming, popular, loading } = useMovie();
 
   return loading ? null : (
     <>
