@@ -2,15 +2,8 @@ import * as React from 'react';
 import styled from 'styled-components';
 import Section from '../../Components/Section';
 import Loader from '../../Components/Loader';
-import Message from '../../Components/Message';
 import Poster from '../../Components/Poster';
 import Helmet from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../Redux/reducer';
-import { useEffect } from 'react';
-import { getTopRatedTVStart } from '../../Redux/modules/tv/topRatedTV';
-import { getPopularTVStart } from '../../Redux/modules/tv/popularTV';
-import { getAiringTodayStart } from '../../Redux/modules/tv/airingTodayTV';
 import useShows from '../../hooks/useShows';
 
 const Container = styled.div`

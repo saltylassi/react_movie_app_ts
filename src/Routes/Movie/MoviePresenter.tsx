@@ -4,12 +4,6 @@ import Section from '../../Components/Section';
 import Loader from '../../Components/Loader';
 import Poster from '../../Components/Poster';
 import Helmet from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
-import { getNowPlayingMovieStart } from '../../Redux/modules/movie/nowPlayingMovie';
-import { useEffect } from 'react';
-import { RootState } from '../../Redux/reducer';
-import { getUpcomingMovieStart } from '../../Redux/modules/movie/upcomingMovie';
-import { getPopularMovieStart } from '../../Redux/modules/movie/popularMovie';
 import useMovie from '../../hooks/useMovies';
 
 const Container = styled.div`

@@ -17,7 +17,7 @@ const useShows = () => {
     dispatch(getTopRatedTVStart());
     dispatch(getPopularTVStart());
     dispatch(getAiringTodayStart());
-  }, []);
+  }, [dispatch]);
 
   return { topRated, popular, airingToday, loading };
 };

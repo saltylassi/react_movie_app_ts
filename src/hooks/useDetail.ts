@@ -22,7 +22,7 @@ const useDetail = () => {
     } else {
       dispatch(getShowDetailStart(id));
     }
-  }, []);
+  }, [dispatch, id, isMovie]);
 
   return { isMovie, id, push, data, loading, error };
 };

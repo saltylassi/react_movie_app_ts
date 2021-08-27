@@ -16,7 +16,7 @@ const useMovie = () => {
     dispatch(getNowPlayingMovieStart());
     dispatch(getUpcomingMovieStart());
     dispatch(getPopularMovieStart());
-  }, []);
+  }, [dispatch]);
 
   return { nowPlaying, upcoming, popular, loading };
 };

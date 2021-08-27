@@ -3,12 +3,6 @@ import styled from 'styled-components';
 import Loader from '../../Components/Loader';
 import Helmet from 'react-helmet';
 import Message from '../../Components/Message';
-import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../Redux/reducer';
-import { useEffect } from 'react';
-import { getMovieDetailStart } from '../../Redux/modules/movie/movieDetail';
-import { getShowDetailStart } from '../../Redux/modules/tv/showDetail';
 import useDetail from '../../hooks/useDetail';
 
 const Container = styled.div`
