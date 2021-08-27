@@ -1,10 +1,10 @@
 /* eslint-disable import/no-anonymous-default-export */
 import * as React from 'react';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
-import Home from '../Routes/Home';
+import Movie from '../Routes/Movie/MoviePresenter';
 import Search from '../Routes/Search';
-import TV from '../Routes/TV';
-import Detail from '../Routes/Detail';
+import TV from '../Routes/TV/TVPresenter';
+import Detail from '../Routes/Detail/DetailPresenter';
 import Header from './Header';
 
 export default () => {
@@ -13,7 +13,7 @@ export default () => {
       <>
         <Header />
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={Movie} />
           <Route path="/tv" component={TV} />
           <Route path="/search" component={Search} />
           <Route path="/movie/:id" component={Detail} />

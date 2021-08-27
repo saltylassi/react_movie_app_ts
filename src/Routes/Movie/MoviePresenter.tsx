@@ -2,23 +2,34 @@ import React from 'react';
 import styled from 'styled-components';
 import Section from '../../Components/Section';
 import Loader from '../../Components/Loader';
-import Message from '../../Components/Message';
 import Poster from '../../Components/Poster';
 import Helmet from 'react-helmet';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNowPlayingMovieStart } from '../../Redux/modules/movie/nowPlayingMovie';
+import { useEffect } from 'react';
+import { RootState } from '../../Redux/reducer';
+import { getUpcomingMovieStart } from '../../Redux/modules/movie/upcomingMovie';
+import { getPopularMovieStart } from '../../Redux/modules/movie/popularMovie';
 
 const Container = styled.div`
   padding: 60px 20px;
 `;
 
-interface HomeProps {
-  nowPlaying?: any;
-  upcoming?: any;
-  popular?: any;
-  error?: string;
-  loading: boolean;
-}
+const MoviePresenter: React.FC = () => {
+  const dispatch = useDispatch();
+  const nowPlaying = useSelector((state: RootState) => state.nowPlayingMovie);
+  const upcoming = useSelector((state: RootState) => state.upcomingMovie);
+  const popular = useSelector((state: RootState) => state.popularMovie);
+  const loading = nowPlaying.loading && upcoming.loading && popular.loading;
 
-const HomePresenter: React.FC<HomeProps> = ({ nowPlaying, upcoming, popular, error, loading }) => {
+  useEffect(() => {
+    dispatch(getNowPlayingMovieStart());
+    dispatch(getUpcomingMovieStart());
+    dispatch(getPopularMovieStart());
+  }, []);
+
+  useEffect(() => {});
+
   return loading ? null : (
     <>
       <Helmet>
@@ -31,9 +42,9 @@ const HomePresenter: React.FC<HomeProps> = ({ nowPlaying, upcoming, popular, err
           <Helmet>
             <title>Movies | Netflix</title>
           </Helmet>
-          {nowPlaying && nowPlaying.length > 0 && (
+          {nowPlaying && nowPlaying.data.length > 0 && (
             <Section title="Now Playing Movies">
-              {nowPlaying.map((movie: any) => (
+              {nowPlaying.data.map((movie: any) => (
                 <Poster
                   key={movie.id}
                   id={movie.id}
@@ -46,9 +57,9 @@ const HomePresenter: React.FC<HomeProps> = ({ nowPlaying, upcoming, popular, err
               ))}
             </Section>
           )}
-          {popular && popular.length > 0 && (
+          {popular && popular.data.length > 0 && (
             <Section title="Popular Movies">
-              {popular.map((movie: any) => (
+              {popular.data.map((movie: any) => (
                 <Poster
                   key={movie.id}
                   id={movie.id}
@@ -61,9 +72,9 @@ const HomePresenter: React.FC<HomeProps> = ({ nowPlaying, upcoming, popular, err
               ))}
             </Section>
           )}
-          {upcoming && upcoming.length > 0 && (
+          {upcoming && upcoming.data.length > 0 && (
             <Section title="Upcoming Movies">
-              {upcoming.map((movie: any) => (
+              {upcoming.data.map((movie: any) => (
                 <Poster
                   key={movie.id}
                   id={movie.id}
@@ -76,11 +87,10 @@ const HomePresenter: React.FC<HomeProps> = ({ nowPlaying, upcoming, popular, err
               ))}
             </Section>
           )}
-          {error && <Message color="#e74c3c" text={error} />}
         </Container>
       )}
     </>
   );
 };
 
-export default HomePresenter;
+export default MoviePresenter;

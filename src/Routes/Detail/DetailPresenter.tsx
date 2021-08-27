@@ -3,6 +3,12 @@ import styled from 'styled-components';
 import Loader from '../../Components/Loader';
 import Helmet from 'react-helmet';
 import Message from '../../Components/Message';
+import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../Redux/reducer';
+import { useEffect } from 'react';
+import { getMovieDetailStart } from '../../Redux/modules/movie/movieDetail';
+import { getShowDetailStart } from '../../Redux/modules/tv/showDetail';
 
 const Container = styled.div`
   height: 100vh;
@@ -84,7 +90,34 @@ interface DetailProps {
   loading: boolean;
 }
 
-const DetailPresenter: React.FC<DetailProps> = ({ result, error, loading }) => {
+const DetailPresenter: React.FC<DetailProps> = () => {
+  const { pathname } = useLocation();
+  const { id } = useParams<{ id: string }>();
+  const { push } = useHistory();
+  const isMovie = pathname.includes('/movie/');
+  const result: any = useSelector((state: RootState) => {
+    return isMovie ? state.movieDetail : state.showDetail;
+  });
+  const { data, loading, error } = result;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isMovie) {
+      dispatch(getMovieDetailStart(id));
+    } else {
+      dispatch(getShowDetailStart(id));
+    }
+  }, []);
+
+  // 작동안함
+  // connectRouter 추가해서 redux로 고칠 것
+
+  // useEffect(() => {
+  //   if (isNaN(parseInt(id))) {
+  //     push('/');
+  //   }
+  // }, [id]);
+
   return loading ? (
     <>
       <Helmet>
@@ -97,46 +130,44 @@ const DetailPresenter: React.FC<DetailProps> = ({ result, error, loading }) => {
   ) : (
     <Container>
       <Helmet>
-        <title>{result.original_title ? result.original_title : result.original_name} | Netflix</title>
+        <title>{data.original_title ? data.original_title : data.original_name} | Netflix</title>
       </Helmet>
       <Backdrop
         bgImage={
-          result.backdrop_path
-            ? `https://image.tmdb.org/t/p/original${result.backdrop_path}`
+          data.backdrop_path
+            ? `https://image.tmdb.org/t/p/original${data.backdrop_path}`
             : require('../../assets/noPosterSmall.png')
         }
       />
       <Content>
         <Cover
           bgImage={
-            result.poster_path
-              ? `https://image.tmdb.org/t/p/original${result.poster_path}`
+            data.poster_path
+              ? `https://image.tmdb.org/t/p/original${data.poster_path}`
               : require('../../assets/noPosterSmall.png')
           }
         />
         <Data>
-          <Title>{result.original_title ? result.original_title : result.original_name}</Title>
+          <Title>{data.original_title ? data.original_title : data.original_name}</Title>
           <ItemContainer>
             <Item>
-              {result.release_date
-                ? result.release_date.substring(0, 4)
-                : result.first_air_date
-                ? result.first_air_date.substring(0, 4)
+              {data.release_date
+                ? data.release_date.substring(0, 4)
+                : data.first_air_date
+                ? data.first_air_date.substring(0, 4)
                 : null}
             </Item>
             <Divider>·</Divider>
-            <Item>
-              {result.runtime ? result.runtime : result.episode_run_time ? result.episode_run_time[0] : 'NaN'} min
-            </Item>
+            <Item>{data.runtime ? data.runtime : data.episode_run_time ? data.episode_run_time[0] : 'NaN'} min</Item>
             <Divider>·</Divider>
             <Item>
-              {result.genres &&
-                result.genres.map((genre, index) =>
-                  index === result.genres.length - 1 ? genre.name : `${genre.name}/`
+              {data.genres &&
+                data.genres.map((genre: any, index: any) =>
+                  index === data.genres.length - 1 ? genre.name : `${genre.name}/`
                 )}
             </Item>
           </ItemContainer>
-          <Overview>{result.overview}</Overview>
+          <Overview>{data.overview}</Overview>
         </Data>
       </Content>
     </Container>
