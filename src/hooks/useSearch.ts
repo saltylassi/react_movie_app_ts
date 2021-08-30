@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSearchMovieStart } from '../Redux/modules/movie/seachmovie';
-import { getSearchTVStart } from '../Redux/modules/tv/searchTV';
+import { getSearchMovieStart, getSearchMovieSuccess } from '../Redux/modules/movie/seachmovie';
+import { getSearchTVStart, getSearchTVSuccess } from '../Redux/modules/tv/searchTV';
 import { RootState } from '../Redux/reducer';
 
 const useSearch = () => {
@@ -30,6 +30,13 @@ const useSearch = () => {
     dispatch(getSearchTVStart(term));
     dispatch(getSearchMovieStart(term));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(getSearchMovieSuccess([]));
+      dispatch(getSearchTVSuccess([]));
+    };
+  }, []);
 
   return {
     movieResults,
