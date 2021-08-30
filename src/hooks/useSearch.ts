@@ -36,7 +36,7 @@ const useSearch = () => {
       dispatch(getSearchMovieSuccess([]));
       dispatch(getSearchTVSuccess([]));
     };
-  }, []);
+  }, [dispatch]);
 
   return {
     movieResults,
