@@ -68,24 +68,7 @@ const Overview = styled.p`
   width: 50%;
 `;
 
-interface DetailProps {
-  result: {
-    original_title?: string;
-    original_name?: string;
-    backdrop_path?: string;
-    poster_path?: string;
-    release_date?: string;
-    first_air_date?: string;
-    runtime: number;
-    episode_run_time: Array<number>;
-    genres: Array<{ id: number; name: string }>;
-    overview: string;
-  };
-  error?: string;
-  loading: boolean;
-}
-
-const DetailPresenter: React.FC<DetailProps> = () => {
+const DetailPresenter: React.FC = () => {
   const { data, loading, error } = useDetail();
 
   return loading ? (
