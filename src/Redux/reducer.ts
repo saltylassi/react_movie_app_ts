@@ -7,6 +7,8 @@ import popularTV from './modules/tv/popularTV';
 import airingTV from './modules/tv/airingTodayTV';
 import movieDetail from './modules/movie/movieDetail';
 import showDetail from './modules/tv/showDetail';
+import searchMovie from './modules/movie/seachmovie';
+import searchTV from './modules/tv/searchTV';
 
 const rootReducer = combineReducers({
   nowPlayingMovie,
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   airingTV,
   movieDetail,
   showDetail,
+  searchMovie,
+  searchTV,
 });
 
 export default rootReducer;

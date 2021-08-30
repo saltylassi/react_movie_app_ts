@@ -7,6 +7,8 @@ import { getPopularTVSagas } from './modules/tv/popularTV';
 import { getTopRatedTVSagas } from './modules/tv/topRatedTV';
 import { getMovieDetailSagas } from './modules/movie/movieDetail';
 import { getShowDetailSagas } from './modules/tv/showDetail';
+import { getSearchMovieSagas } from './modules/movie/seachmovie';
+import { getSearchTVSagas } from './modules/tv/searchTV';
 
 export default function* rootSaga() {
   yield all([
@@ -18,5 +20,7 @@ export default function* rootSaga() {
     getAiringTodaySagas(),
     getMovieDetailSagas(),
     getShowDetailSagas(),
+    getSearchMovieSagas(),
+    getSearchTVSagas(),
   ]);
 }

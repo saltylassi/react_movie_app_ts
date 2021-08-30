@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import { MoviesApi, TVApi } from '../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSearchMovieStart } from '../Redux/modules/movie/seachmovie';
+import { getSearchTVStart } from '../Redux/modules/tv/searchTV';
+import { RootState } from '../Redux/reducer';
 
 const useSearch = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [movieResults, setMovieResults] = useState<any>([]);
-  const [tvResults, setTVResults] = useState<any>([]);
-  const [error, setError] = useState<any>(null);
+
+  const movieResults = useSelector((state: RootState) => state.searchMovie);
+  const tvResults = useSelector((state: RootState) => state.searchTV);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -22,23 +27,13 @@ const useSearch = () => {
   };
 
   const searchByTerm = async (term: string) => {
-    try {
-      const {
-        data: { results: movieResult },
-      } = await MoviesApi.search(searchTerm);
-      const {
-        data: { results: tvResult },
-      } = await TVApi.search(searchTerm);
-      setMovieResults(() => movieResult);
-      setTVResults(() => tvResult);
-    } catch {
-      setError(() => 'No Results');
-    }
+    dispatch(getSearchTVStart(term));
+    dispatch(getSearchMovieStart(term));
   };
+
   return {
     movieResults,
     tvResults,
-    error,
     handleSubmit,
     updateTerm,
     searchTerm,

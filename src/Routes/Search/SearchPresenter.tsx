@@ -23,8 +23,9 @@ const Input = styled.input`
 `;
 
 const SearchPresenter: React.FC = () => {
-  const { movieResults, tvResults, error, handleSubmit, updateTerm, searchTerm } = useSearch();
-  const loading = true;
+  const { movieResults, tvResults, handleSubmit, updateTerm, searchTerm } = useSearch();
+  const loading = movieResults.data.length ? movieResults.loading : false;
+
   return loading ? null : (
     <>
       <Helmet>
@@ -38,9 +39,9 @@ const SearchPresenter: React.FC = () => {
           <Loader />
         ) : (
           <>
-            {movieResults && movieResults.length > 0 && (
+            {movieResults && movieResults.data.length > 0 && (
               <Section title="Movie Results">
-                {movieResults.map((movie: any) => (
+                {movieResults.data.map((movie: any) => (
                   <Poster
                     key={movie.id}
                     id={movie.id}
@@ -53,9 +54,9 @@ const SearchPresenter: React.FC = () => {
                 ))}
               </Section>
             )}
-            {tvResults && tvResults.length > 0 && (
+            {tvResults && tvResults.data.length > 0 && (
               <Section title="TV Results">
-                {tvResults.map((show: any) => (
+                {tvResults.data.map((show: any) => (
                   <Poster
                     key={show.id}
                     id={show.id}
@@ -68,8 +69,7 @@ const SearchPresenter: React.FC = () => {
                 ))}
               </Section>
             )}
-            {error && <Message color="#e74c3c" text={error} />}
-            {tvResults && movieResults && tvResults.length === 0 && movieResults.length === 0 && (
+            {tvResults && movieResults && tvResults.data.length === 0 && movieResults.data.length === 0 && (
               <Message text="Nothing found" color="#95a5a6" />
             )}
           </>
