@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import { AxiosResponse } from 'axios';
 import { handleActions } from 'redux-actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { MoviesApi } from '../../../api';

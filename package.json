@@ -36,9 +36,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "react-start": "set BROWSER=none && yarn start",
-    "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "electron-pack": "yarn build && electron-builder build -c.extraMetadata.main=build/Main.js"
+    "react-start": "set BROWSER=none && yarn start"
   },
   "eslintConfig": {
     "extends": [
@@ -59,7 +57,6 @@
     ]
   },
   "devDependencies": {
-    "electron": "^13.2.1",
-    "electron-builder": "^22.11.7"
+    "@testing-library/react-hooks": "^7.0.2"
   }
 }
